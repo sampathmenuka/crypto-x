@@ -1,0 +1,15 @@
+{
+  "name": "crypto-x-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for Crypto-X application",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vite": "^latest"
+  }
+}
