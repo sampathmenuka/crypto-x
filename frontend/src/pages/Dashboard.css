@@ -1,0 +1,74 @@
+.dashboard { display: flex; flex-direction: column; gap: 20px; }
+
+.dashboard__heading {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+}
+.dashboard__title { font-size: 22px; font-weight: 800; color: var(--color-text); letter-spacing: -.02em; }
+.dashboard__sub   { font-size: 13px; color: var(--color-text-3); margin-top: 2px; }
+
+.dashboard__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+}
+.stat-card__icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.stat-card__body { flex: 1; min-width: 0; }
+.stat-card__label { font-size: 11px; color: var(--color-text-3); text-transform: uppercase; letter-spacing: .06em; }
+.stat-card__value { font-size: 20px; font-weight: 800; color: var(--color-text); letter-spacing: -.01em; }
+.stat-card__sub   { font-size: 11px; color: var(--color-text-3); margin-top: 2px; }
+
+.dashboard__section-header {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.dashboard__section-title { font-size: 16px; font-weight: 700; color: var(--color-text); }
+.dashboard__see-all {
+  display: flex; align-items: center; gap: 3px;
+  font-size: 12px; color: var(--color-primary); text-decoration: none; font-weight: 600;
+  transition: opacity .18s;
+}
+.dashboard__see-all:hover { opacity: .75; }
+
+.dashboard__market-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 14px;
+}
+.dashboard__skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 14px;
+}
+
+.dashboard__empty {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; padding: 60px 20px;
+  color: var(--color-text-3); text-align: center; font-size: 13px;
+}
+
+/* Orders table */
+.dashboard__table {
+  width: 100%; border-collapse: collapse; font-size: 12px;
+}
+.dashboard__table th {
+  padding: 10px 16px; text-align: left;
+  font-size: 10px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--color-text-3); background: var(--color-surface-2);
+  border-bottom: 1px solid var(--color-border);
+}
+.dashboard__table td {
+  padding: 10px 16px; color: var(--color-text-2);
+  border-bottom: 1px solid var(--color-border);
+}
+.dashboard__table tr:last-child td { border-bottom: none; }
+.dashboard__table tr:hover td { background: var(--color-surface-2); }
