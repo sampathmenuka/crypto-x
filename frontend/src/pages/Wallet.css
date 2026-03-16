@@ -1,0 +1,38 @@
+.wallet-page { display: flex; flex-direction: column; gap: 20px; }
+.wallet-page__title { font-size: 22px; font-weight: 800; color: var(--color-text); letter-spacing: -.02em; }
+.wallet-page__sub   { font-size: 13px; color: var(--color-text-3); margin-top: -14px; }
+.wallet-page__section-title { font-size: 16px; font-weight: 700; color: var(--color-text); }
+
+.wallet-page__balances {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+}
+
+.wallet-balance-card {
+  display: flex; flex-direction: column; gap: 8px; padding: 20px;
+}
+.wallet-balance-card__icon {
+  width: 42px; height: 42px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+.wallet-balance-card__label { font-size: 11px; color: var(--color-text-3); text-transform: uppercase; letter-spacing: .06em; }
+.wallet-balance-card__value { font-size: 22px; font-weight: 800; color: var(--color-text); letter-spacing: -.02em; }
+.wallet-balance-card__sub   { font-size: 11px; color: var(--color-text-3); }
+
+.wallet-page__empty {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  padding: 60px 20px; color: var(--color-text-3); text-align: center; font-size: 13px;
+}
+
+.wallet-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.wallet-table th {
+  padding: 10px 16px; text-align: left; font-size: 10px; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--color-text-3); background: var(--color-surface-2);
+  border-bottom: 1px solid var(--color-border);
+}
+.wallet-table td {
+  padding: 12px 16px; color: var(--color-text-2); border-bottom: 1px solid var(--color-border);
+}
+.wallet-table tr:last-child td { border-bottom: none; }
+.wallet-table tr:hover td { background: rgba(255,255,255,.02); }
