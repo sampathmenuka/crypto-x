@@ -1,0 +1,13 @@
+.candle-chart {
+  width: 100%;
+  position: relative;
+}
+.candle-chart canvas { display: block; width: 100% !important; }
+.candle-chart__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: var(--color-text-3);
+  font-size: 13px;
+}
