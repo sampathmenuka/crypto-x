@@ -1,0 +1,38 @@
+.orders-page { display: flex; flex-direction: column; gap: 20px; }
+.orders-page__header { display: flex; align-items: flex-start; justify-content: space-between; }
+.orders-page__title { font-size: 22px; font-weight: 800; color: var(--color-text); letter-spacing: -.02em; }
+.orders-page__sub   { font-size: 13px; color: var(--color-text-3); margin-top: 2px; }
+
+.orders-page__filters {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.orders-filter-btn {
+  display: flex; align-items: center; gap: 5px;
+  padding: 5px 14px; border-radius: 99px; border: 1px solid var(--color-border);
+  background: transparent; color: var(--color-text-2); font-size: 12px; font-weight: 600;
+  cursor: pointer; font-family: var(--font-sans); transition: all .18s;
+}
+.orders-filter-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.orders-filter-btn--active { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
+.orders-filter-count {
+  background: rgba(255,255,255,.15); border-radius: 99px;
+  padding: 1px 6px; font-size: 10px;
+}
+
+.orders-page__empty {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  padding: 60px 20px; color: var(--color-text-3); text-align: center; font-size: 13px;
+}
+
+.orders-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.orders-table th {
+  padding: 10px 16px; text-align: left; font-size: 10px; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--color-text-3); background: var(--color-surface-2);
+  border-bottom: 1px solid var(--color-border);
+}
+.orders-table td {
+  padding: 11px 16px; color: var(--color-text-2); border-bottom: 1px solid var(--color-border);
+}
+.orders-table tr:last-child td { border-bottom: none; }
+.orders-table tr:hover td { background: rgba(255,255,255,.02); }
+.orders-table__time { color: var(--color-text-3); font-size: 11px; white-space: nowrap; }

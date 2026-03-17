@@ -1,0 +1,64 @@
+.trading { display: flex; flex-direction: column; gap: 16px; }
+
+/* Top bar */
+.trading__topbar {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+}
+.trading__symbol-select-wrap { min-width: 160px; }
+.trading__symbol-select {
+  font-size: 15px; font-weight: 700; cursor: pointer;
+}
+
+.trading__stats { display: flex; gap: 28px; flex-wrap: wrap; }
+.trading__stat  { display: flex; flex-direction: column; gap: 2px; }
+.trading__stat-label { font-size: 10px; color: var(--color-text-3); text-transform: uppercase; letter-spacing: .06em; }
+.trading__stat-value {
+  font-size: 14px; font-weight: 700; color: var(--color-text);
+  display: flex; align-items: center; gap: 4px;
+}
+
+/* Grid */
+.trading__grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 16px;
+  align-items: start;
+}
+@media (max-width: 960px) {
+  .trading__grid { grid-template-columns: 1fr; }
+}
+
+.trading__chart-col  { display: flex; flex-direction: column; gap: 12px; }
+.trading__right-col  { display: flex; flex-direction: column; gap: 12px; }
+
+/* Interval strip */
+.trading__intervals { display: flex; align-items: center; gap: 6px; }
+.trading__interval-btn {
+  padding: 4px 10px; border-radius: 6px; border: none; background: transparent;
+  color: var(--color-text-2); font-size: 12px; font-weight: 600; cursor: pointer;
+  font-family: var(--font-sans); transition: all .15s;
+}
+.trading__interval-btn:hover { background: var(--color-surface-2); color: var(--color-text); }
+.trading__interval-btn--active {
+  background: var(--color-surface-2); color: var(--color-primary);
+  box-shadow: 0 1px 4px rgba(0,0,0,.3);
+}
+
+/* Chart card */
+.trading__chart-card { padding: 16px; }
+
+/* Open orders */
+.trading__open-orders { padding: 14px 0 0; overflow: hidden; }
+.trading__open-orders-title {
+  font-size: 13px; font-weight: 700; color: var(--color-text); padding: 0 16px 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+.trading__orders-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.trading__orders-table th {
+  padding: 8px 14px; text-align: left; font-size: 10px; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--color-text-3); background: var(--color-surface-2);
+}
+.trading__orders-table td {
+  padding: 9px 14px; color: var(--color-text-2);
+  border-top: 1px solid var(--color-border);
+}
