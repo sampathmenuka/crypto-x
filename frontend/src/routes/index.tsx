@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import MainLayout from '../layouts/MainLayout'
 import Dashboard from '../pages/Dashboard'
 import Markets from '../pages/Markets'
@@ -8,25 +8,17 @@ import Wallet from '../pages/Wallet'
 import Orders from '../pages/Orders'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
+import Home from '../pages/Home'
 import ProtectedRoute from './ProtectedRoute'
 
 const AppRoutes: React.FC = () => {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <MainLayout>
-                <Dashboard />
-              </MainLayout>
-            </ProtectedRoute>
-          }
-        />
         <Route
           path="/dashboard"
           element={
@@ -77,6 +69,8 @@ const AppRoutes: React.FC = () => {
             </ProtectedRoute>
           }
         />
+        {/* Catch all */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   )
