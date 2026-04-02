@@ -29,12 +29,12 @@ const Navbar: React.FC = () => {
   const topMarkets = markets.slice(0, 3);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'py-3 bg-background/80 backdrop-blur-lg border-b border-white/5' : 'py-6 bg-transparent'
+    <nav className={`absolute top-0 left-0 right-0 z-40 transition-all duration-300 bg-card border-b border-white/5 ${
+      isScrolled ? 'py-3' : 'py-4'
     }`}>
       <div className="container mx-auto px-6 flex items-center justify-between gap-8">
         {/* Logo */}
-        <div className="flex items-center gap-2 flex-shrink-0">
+        <div className="flex items-center gap-2 flex-shrink-0 lg:hidden">
           <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center font-bold text-background shadow-glow-primary/20">X</div>
           <span className="font-display font-bold text-2xl tracking-tighter hidden md:block">CRYPTO-X</span>
         </div>
