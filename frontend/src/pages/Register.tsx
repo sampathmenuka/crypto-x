@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/useAuthStore'
-import { Eye, EyeOff, Zap, ArrowRight } from 'lucide-react'
+import { User, Lock, Mail, Eye, EyeOff } from 'lucide-react'
 import Spinner from '../components/ui/Spinner'
-import './Auth.css'
+import './Login.css'
 
 const Register: React.FC = () => {
   const navigate  = useNavigate()
@@ -30,106 +30,111 @@ const Register: React.FC = () => {
 
   const displayError = localErr || error
 
-  return (
-    <div className="auth-page">
-      <div className="auth-blob auth-blob--1" />
-      <div className="auth-blob auth-blob--2" />
+  const isFormValid = username.length >= 3 && email.includes('@') && password.length >= 8 && password === confirm
 
-      <div className="auth-card card fade-in">
-        <div className="auth-card__logo">
-          <div className="auth-card__logo-icon"><Zap size={20} /></div>
-          <span className="auth-card__logo-text">Crypto<span>X</span></span>
+  return (
+    <div className="login-page-alt">
+      <div className="login-card-alt fade-in">
+        
+        <div className="login-avatar">
+          <User size={40} />
         </div>
 
-        <h1 className="auth-card__title">Create account</h1>
-        <p className="auth-card__sub">Join thousands of traders on Crypto-X</p>
+        <h1 className="login-title">REGISTER NOW</h1>
 
         {displayError && (
-          <div className="auth-card__error">{displayError}</div>
+          <div className="login-error-alt" role="alert">{displayError}</div>
         )}
 
-        <form id="register-form" className="auth-form" onSubmit={handleSubmit}>
-          <label className="auth-form__field">
-            <span>Username</span>
+        <form id="register-form" className="login-form-alt" onSubmit={handleSubmit} noValidate>
+          
+          <div className="login-input-group">
+            <div className="login-input-icon">
+              <User size={18} />
+            </div>
             <input
               id="register-username"
-              className="input"
+              className="login-input-field"
               type="text"
-              placeholder="satoshi"
+              placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
+              minLength={3}
               autoComplete="username"
             />
-          </label>
+          </div>
 
-          <label className="auth-form__field">
-            <span>Email address</span>
+          <div className="login-input-group">
+            <div className="login-input-icon">
+              <Mail size={18} />
+            </div>
             <input
               id="register-email"
-              className="input"
+              className="login-input-field"
               type="email"
-              placeholder="you@example.com"
+              placeholder="E-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
             />
-          </label>
+          </div>
 
-          <label className="auth-form__field">
-            <span>Password</span>
-            <div className="auth-form__pw-wrap">
-              <input
-                id="register-password"
-                className="input"
-                type={showPw ? 'text' : 'password'}
-                placeholder="min. 8 characters"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                style={{ paddingRight: 40 }}
-              />
-              <button
-                type="button"
-                className="auth-form__pw-toggle"
-                onClick={() => setShowPw((v) => !v)}
-                tabIndex={-1}
-              >
-                {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
-              </button>
+          <div className="login-input-group">
+            <div className="login-input-icon">
+              <Lock size={18} />
             </div>
-          </label>
+            <input
+              id="register-password"
+              className="login-input-field"
+              type={showPw ? 'text' : 'password'}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength={8}
+            />
+            <button
+              type="button"
+              className="login-pw-toggle"
+              onClick={() => setShowPw((v) => !v)}
+              tabIndex={-1}
+              aria-label={showPw ? 'Hide password' : 'Show password'}
+            >
+              {showPw ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
 
-          <label className="auth-form__field">
-            <span>Confirm Password</span>
+          <div className="login-input-group">
+            <div className="login-input-icon">
+              <Lock size={18} />
+            </div>
             <input
               id="register-confirm"
-              className="input"
+              className="login-input-field"
               type={showPw ? 'text' : 'password'}
-              placeholder="repeat password"
+              placeholder="Confirm Password"
               value={confirm}
               onChange={(e) => setConfirm(e.target.value)}
               required
+              minLength={8}
             />
-          </label>
+          </div>
 
           <button
             id="btn-register-submit"
             type="submit"
-            className="btn btn-primary btn-lg auth-form__submit"
-            disabled={isLoading}
+            className="login-submit-btn"
+            disabled={isLoading || !isFormValid}
           >
-            {isLoading ? <Spinner size={18} /> : <>Create Account <ArrowRight size={16} /></>}
+            {isLoading ? <Spinner size={18} /> : 'SUBMIT'}
           </button>
         </form>
 
-        <p className="auth-card__footer">
-          Already have an account?{' '}
-          <Link id="link-login" to="/login" className="auth-card__link">
-            Sign in
-          </Link>
-        </p>
+        <Link id="link-login" to="/login" className="login-footer-link">
+          Already have an account? Sign in
+        </Link>
       </div>
     </div>
   )
