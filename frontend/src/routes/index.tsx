@@ -32,11 +32,9 @@ const AppRoutes: React.FC = () => {
         <Route
           path="/markets"
           element={
-            <ProtectedRoute>
-              <MainLayout>
-                <Markets />
-              </MainLayout>
-            </ProtectedRoute>
+            <MainLayout>
+              <Markets />
+            </MainLayout>
           }
         />
         <Route
