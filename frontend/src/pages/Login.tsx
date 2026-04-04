@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/useAuthStore'
-import { Eye, EyeOff, Zap, ArrowRight } from 'lucide-react'
+import { User, Lock, Mail, Eye, EyeOff } from 'lucide-react'
 import Spinner from '../components/ui/Spinner'
-import './Auth.css'
+import './Login.css'
 
 const Login: React.FC = () => {
   const navigate = useNavigate()
@@ -23,81 +23,75 @@ const Login: React.FC = () => {
   }
 
   return (
-    <div className="auth-page">
-      {/* Animated background blobs */}
-      <div className="auth-blob auth-blob--1" />
-      <div className="auth-blob auth-blob--2" />
-
-      <div className="auth-card card fade-in">
-        {/* Logo */}
-        <div className="auth-card__logo">
-          <div className="auth-card__logo-icon"><Zap size={20} /></div>
-          <span className="auth-card__logo-text">Crypto<span>X</span></span>
+    <div className="login-page-alt">
+      <div className="login-card-alt fade-in">
+        
+        <div className="login-avatar">
+          <User size={40} />
         </div>
 
-        <h1 className="auth-card__title">Welcome back</h1>
-        <p className="auth-card__sub">Sign in to your trading account</p>
+        <h1 className="login-title">LOGIN NOW</h1>
 
         {error && (
-          <div className="auth-card__error">{error}</div>
+          <div className="login-error-alt">{error}</div>
         )}
 
-        <form id="login-form" className="auth-form" onSubmit={handleSubmit}>
-          <label className="auth-form__field">
-            <span>Email address</span>
+        <form id="login-form" className="login-form-alt" onSubmit={handleSubmit}>
+          
+          <div className="login-input-group">
+            <div className="login-input-icon">
+              <Mail size={18} />
+            </div>
             <input
               id="login-email"
-              className="input"
+              className="login-input-field"
               type="email"
-              placeholder="you@example.com"
+              placeholder="E-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
             />
-          </label>
+          </div>
 
-          <label className="auth-form__field">
-            <span>Password</span>
-            <div className="auth-form__pw-wrap">
-              <input
-                id="login-password"
-                className="input"
-                type={showPw ? 'text' : 'password'}
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                autoComplete="current-password"
-                style={{ paddingRight: 40 }}
-              />
-              <button
-                type="button"
-                className="auth-form__pw-toggle"
-                onClick={() => setShowPw((v) => !v)}
-                tabIndex={-1}
-              >
-                {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
-              </button>
+          <div className="login-input-group">
+            <div className="login-input-icon">
+              <Lock size={18} />
             </div>
-          </label>
+            <input
+              id="login-password"
+              className="login-input-field"
+              type={showPw ? 'text' : 'password'}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="current-password"
+            />
+            <button
+              type="button"
+              className="login-pw-toggle"
+              onClick={() => setShowPw((v) => !v)}
+              tabIndex={-1}
+              aria-label={showPw ? 'Hide password' : 'Show password'}
+            >
+              {showPw ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
 
           <button
             id="btn-login-submit"
             type="submit"
-            className="btn btn-primary btn-lg auth-form__submit"
+            className="login-submit-btn"
             disabled={isLoading}
           >
-            {isLoading ? <Spinner size={18} /> : <>Sign In <ArrowRight size={16} /></>}
+            {isLoading ? <Spinner size={18} /> : 'SUBMIT'}
           </button>
         </form>
 
-        <p className="auth-card__footer">
-          Don't have an account?{' '}
-          <Link id="link-register" to="/register" className="auth-card__link">
-            Create one free
-          </Link>
-        </p>
+        <Link id="link-register" to="/register" className="login-footer-link">
+          Don't have an account? Create one
+        </Link>
       </div>
     </div>
   )
