@@ -1,14 +1,13 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
+import { useAuthStore } from '../store/useAuthStore'
 
 interface ProtectedRouteProps {
   children: React.ReactNode
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  // Check if user is authenticated
-  // This should be replaced with your actual authentication logic
-  const isAuthenticated = !!localStorage.getItem('authToken')
+  const isAuthenticated = useAuthStore(state => state.isAuthenticated())
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />
