@@ -17,6 +17,7 @@ import { useLocalStorage } from '../../hooks';
 const navItems = [
   { path: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
   { path: '/markets',   icon: TrendingUp,      label: 'Markets'   },
+  { path: '/charts',    icon: TrendingUp,      label: 'Charts'    },
   { path: '/trading',   icon: BarChart2,        label: 'Trading'   },
   { path: '/wallet',    icon: Wallet,           label: 'Wallet'    },
   { path: '/orders',    icon: ClipboardList,    label: 'Orders'    },
