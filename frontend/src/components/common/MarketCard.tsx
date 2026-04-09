@@ -26,7 +26,7 @@ const MarketCard: React.FC<MarketCardProps> = ({ market, onClick }) => {
               {market.symbol}
               <ArrowUpRight size={12} className="text-text-secondary group-hover:text-primary transition-colors" />
             </div>
-            <div className="text-[11px] text-text-secondary">{market.name}</div>
+            <div className="text-sm text-text-secondary">{market.name}</div>
           </div>
         </div>
         <div className={`flex items-center gap-1 text-xs font-bold ${isPositive ? 'text-up' : 'text-down'}`}>
@@ -43,11 +43,11 @@ const MarketCard: React.FC<MarketCardProps> = ({ market, onClick }) => {
 
       <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
         <div>
-          <div className="text-[10px] text-text-secondary uppercase tracking-wider mb-1">24h Vol</div>
+          <div className="text-xs text-text-secondary uppercase tracking-wider mb-1">24h Vol</div>
           <div className="text-xs font-medium">{formatCompact(market.volume24h)}</div>
         </div>
         <div>
-          <div className="text-[10px] text-text-secondary uppercase tracking-wider mb-1">Market Cap</div>
+          <div className="text-xs text-text-secondary uppercase tracking-wider mb-1">Market Cap</div>
           <div className="text-xs font-medium">{formatCompact(market.marketCap)}</div>
         </div>
       </div>
