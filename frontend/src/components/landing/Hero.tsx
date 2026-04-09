@@ -113,7 +113,7 @@ const Hero: React.FC = () => {
                 
                 <div className="bg-[#2a3040] rounded-2xl p-4 mt-4 flex justify-between items-center">
                   <div>
-                    <div className="text-[10px] text-white/40">Earnings</div>
+                    <div className="text-xs text-white/40">Earnings</div>
                     <div className="text-white font-bold">$1,123.45</div>
                   </div>
                   <div className="text-primary text-sm">+8.4%</div>
