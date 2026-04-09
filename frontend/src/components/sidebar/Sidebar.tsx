@@ -89,7 +89,7 @@ const Sidebar: React.FC = () => {
                 </div>
                 <div className="overflow-hidden">
                   <p className="text-sm font-bold truncate">{user?.username ?? 'Trader'}</p>
-                  <p className="text-[10px] text-text-secondary truncate">{user?.email ?? 'trader@crypto-x.com'}</p>
+                  <p className="text-xs text-text-secondary truncate">{user?.email ?? 'trader@crypto-x.com'}</p>
                 </div>
               </div>
             )}

@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
                   </div>
                   <div className="text-right">
                     <div className="text-sm font-mono">{formatPrice(m.price)}</div>
-                    <div className={`text-[10px] ${m.change24h >= 0 ? 'text-up' : 'text-down'}`}>
+                    <div className={`text-xs ${m.change24h >= 0 ? 'text-up' : 'text-down'}`}>
                       {formatPercent(m.change24h)}
                     </div>
                   </div>
@@ -80,7 +80,7 @@ const Navbar: React.FC = () => {
             <div key={m.symbol} className="flex items-center gap-3 px-4 py-2 bg-white/5 rounded-full border border-white/5">
               <span className="text-xs font-bold text-text-secondary">{m.symbol}</span>
               <span className="text-xs font-mono">{formatPrice(m.price)}</span>
-              <span className={`flex items-center gap-1 text-[10px] ${m.change24h >= 0 ? 'text-up' : 'text-down'}`}>
+              <span className={`flex items-center gap-1 text-xs ${m.change24h >= 0 ? 'text-up' : 'text-down'}`}>
                 {m.change24h >= 0 ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
                 {formatPercent(m.change24h)}
               </span>
