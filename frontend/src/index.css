@@ -77,6 +77,14 @@
            transition-all duration-300 focus:border-primary/50 focus:ring-1 focus:ring-primary/50;
   }
 
+  .input-field:-webkit-autofill,
+  .input-field:-webkit-autofill:hover, 
+  .input-field:-webkit-autofill:focus, 
+  .input-field:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #fff !important;
+  }
+
   .price-text {
     @apply font-mono font-medium;
   }
