@@ -49,6 +49,14 @@ const FAQ: React.FC = () => {
         <div className="font-bold text-xl tracking-wide uppercase">
           CRYPTO-X FAQ
         </div>
+        <div className="flex items-center gap-3">
+          <button onClick={() => navigate('/login')} className="hidden sm:inline-flex text-white/70 font-bold rounded-xl px-4 py-2.5 text-sm hover:text-white hover:bg-white/5 transition-colors">
+            Log In
+          </button>
+          <button onClick={() => navigate('/register')} className="bg-primary text-black font-bold rounded-xl px-5 py-2.5 text-sm hover:bg-primary/90 transition-colors">
+            Sign Up
+          </button>
+        </div>
       </nav>
 
       <div className="max-w-3xl mx-auto px-6 py-12 relative z-10">
