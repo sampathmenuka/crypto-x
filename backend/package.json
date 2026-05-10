@@ -1,0 +1,11 @@
+{
+  "name": "crypto-x-backend",
+  "version": "1.0.0",
+  "description": "Backend for Crypto-X application",
+  "main": "src/app.ts",
+  "scripts": {
+    "start": "node dist/app.js",
+    "dev": "nodemon",
+    "build": "tsc"
+  }
+}
