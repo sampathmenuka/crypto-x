@@ -1,0 +1,65 @@
+.order-book {
+  padding: 0;
+  overflow: hidden;
+  font-size: 12px;
+}
+.order-book__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+.order-book__title  { font-size: 13px; font-weight: 700; color: var(--color-text); }
+.order-book__symbol { font-size: 11px; color: var(--color-text-3); }
+
+.order-book__labels {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 6px 16px;
+  font-size: 10px;
+  color: var(--color-text-3);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  border-bottom: 1px solid var(--color-border);
+}
+.order-book__labels span:last-child { text-align: right; }
+.order-book__labels span:nth-child(2) { text-align: center; }
+
+.order-book__section { padding: 4px 0; }
+
+.order-book__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  padding: 3px 16px;
+  cursor: pointer;
+  transition: background .12s;
+  overflow: hidden;
+}
+.order-book__row:hover { background: var(--color-surface-2); }
+
+.order-book__depth {
+  position: absolute;
+  top: 0; bottom: 0;
+  opacity: .12;
+  transition: width .3s ease;
+}
+.order-book__depth--ask { right: 0; background: var(--color-red); }
+.order-book__depth--bid { right: 0; background: var(--color-green); }
+
+.order-book__price { font-weight: 600; font-size: 12px; z-index: 1; }
+.order-book__qty   { text-align: center; color: var(--color-text-2); z-index: 1; }
+.order-book__total { text-align: right;  color: var(--color-text-3); z-index: 1; }
+
+.order-book__mid {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: var(--color-surface-2);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+.order-book__mid-label { font-size: 11px; color: var(--color-text-3); }
