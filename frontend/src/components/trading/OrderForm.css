@@ -1,0 +1,42 @@
+.order-form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.order-form__title  { font-size: 15px; font-weight: 700; color: var(--color-text); }
+.order-form__symbol { font-size: 12px; color: var(--color-text-3); margin-top: -8px; }
+
+.order-form__side {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.order-form__side-btn {
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  padding: 9px;
+  border-radius: var(--radius);
+  font-size: 13px; font-weight: 700;
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-2);
+  font-family: var(--font-sans);
+  transition: all .18s;
+}
+.order-form__side-btn:hover                { border-color: var(--color-border-2); color: var(--color-text); }
+.order-form__side-btn--buy                 { background: rgba(34,197,94,.12); border-color: rgba(34,197,94,.4); color: var(--color-green); }
+.order-form__side-btn--sell                { background: rgba(239,68,68,.12);  border-color: rgba(239,68,68,.4);  color: var(--color-red); }
+
+.order-form__field { display: flex; flex-direction: column; gap: 5px; }
+.order-form__field > span { font-size: 11px; color: var(--color-text-3); font-weight: 500; }
+
+.order-form__pcts { display: flex; gap: 6px; }
+.order-form__pcts .btn { flex: 1; justify-content: center; padding: 5px 0; font-size: 11px; }
+
+.order-form__total, .order-form__available {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px;
+}
+.order-form__total   { color: var(--color-text); font-weight: 600; }
+.order-form__available { color: var(--color-text-3); }

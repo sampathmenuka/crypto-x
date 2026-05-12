@@ -1,72 +1,163 @@
-import { useQuery } from '@tanstack/react-query';
-import { portfolioApi } from '../api/portfolio';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
-import { useAuthStore } from '../store/authStore';
+import React, { useEffect } from 'react'
+import { TrendingUp, TrendingDown, DollarSign, BarChart2, Activity, ArrowUpRight } from 'lucide-react'
+import { useMarketStore } from '../store/useMarketStore'
+import { useTradeStore } from '../store/useTradeStore'
+import MarketCard from '../components/common/MarketCard'
+import { formatCurrency, formatPercent, formatCompact } from '../utils'
+import './Dashboard.css'
 
-export default function Dashboard() {
-  const { user } = useAuthStore();
-  const { data, isLoading } = useQuery({
-    queryKey: ['portfolio'],
-    queryFn: portfolioApi.getPortfolio
-  });
+const StatCard: React.FC<{
+  icon: React.ReactNode
+  label: string
+  value: string
+  sub?: string
+  trend?: number
+  color?: string
+}> = ({ icon, label, value, sub, trend, color = 'var(--color-primary)' }) => (
+  <div className="stat-card card">
+    <div className="stat-card__icon" style={{ background: `${color}22`, color }}>
+      {icon}
+    </div>
+    <div className="stat-card__body">
+      <p className="stat-card__label">{label}</p>
+      <p className="stat-card__value">{value}</p>
+      {sub && <p className="stat-card__sub">{sub}</p>}
+    </div>
+    {trend !== undefined && (
+      <span className={`badge ${trend >= 0 ? 'badge-green' : 'badge-red'}`} style={{ marginLeft: 'auto', alignSelf: 'flex-start' }}>
+        {trend >= 0 ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
+        {formatPercent(trend)}
+      </span>
+    )}
+  </div>
+)
 
-  if (isLoading) return <div className="text-gray-400">Loading dashboard...</div>;
+const Dashboard: React.FC = () => {
+  const { markets, fetchMarkets, isLoading } = useMarketStore()
+  const { wallet, orders, positions }        = useTradeStore()
 
-  const portfolio = data?.data;
+  useEffect(() => { fetchMarkets(20) }, [fetchMarkets])
+
+  const totalPnl = positions.reduce((acc, p) => acc + p.profit, 0)
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-gray-400 mt-1">Welcome back, {user?.username}!</p>
+    <div className="dashboard fade-in">
+      <div className="dashboard__heading">
+        <div>
+          <h1 className="dashboard__title">Dashboard</h1>
+          <p className="dashboard__sub">Welcome back! Here's your portfolio overview.</p>
+        </div>
+        <button id="btn-refresh-markets" className="btn btn-ghost" onClick={() => fetchMarkets(20)}>
+          <Activity size={14} /> Refresh
+        </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="bg-gradient-to-br from-blue-900/40 to-blue-950/40 border-blue-900/50">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-blue-200 uppercase tracking-wider">Total Portfolio Value</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-4xl font-bold text-white">
-              ${portfolio?.totalValue?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
-            </div>
-            <div className="mt-2 text-sm text-emerald-400 flex items-center gap-1">
-              +0.00% (Today)
-            </div>
-          </CardContent>
-        </Card>
+      {/* Stats row */}
+      <div className="dashboard__stats">
+        <StatCard
+          icon={<DollarSign size={18} />}
+          label="Portfolio Value"
+          value={formatCurrency(wallet.balance + totalPnl)}
+          sub={`Available: ${formatCurrency(wallet.available)}`}
+          trend={totalPnl !== 0 ? (totalPnl / (wallet.balance || 1)) * 100 : undefined}
+          color="var(--color-primary)"
+        />
+        <StatCard
+          icon={<TrendingUp size={18} />}
+          label="Total P&L"
+          value={formatCurrency(Math.abs(totalPnl))}
+          sub={totalPnl >= 0 ? 'Profit' : 'Loss'}
+          trend={totalPnl >= 0 ? Math.abs(totalPnl) : -Math.abs(totalPnl)}
+          color="var(--color-green)"
+        />
+        <StatCard
+          icon={<BarChart2 size={18} />}
+          label="Open Orders"
+          value={String(orders.filter((o) => o.status === 'PENDING').length)}
+          sub={`${orders.length} total orders`}
+          color="var(--color-accent)"
+        />
+        <StatCard
+          icon={<Activity size={18} />}
+          label="Positions"
+          value={String(positions.length)}
+          sub="Active positions"
+          color="var(--color-yellow)"
+        />
       </div>
 
-      <div>
-        <h2 className="text-xl font-semibold mb-4">Your Assets</h2>
-        <Card>
-          <div className="overflow-x-auto">
-            <table className="w-full">
+      {/* Market overview */}
+      <div className="dashboard__section-header">
+        <h2 className="dashboard__section-title">Market Overview</h2>
+        <a href="/markets" className="dashboard__see-all">
+          See all <ArrowUpRight size={13} />
+        </a>
+      </div>
+
+      {isLoading ? (
+        <div className="dashboard__skeleton-grid">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="skeleton" style={{ height: 148, borderRadius: 16 }} />
+          ))}
+        </div>
+      ) : markets.length === 0 ? (
+        <div className="dashboard__empty">
+          <Activity size={36} />
+          <p>No market data available. Connect to the backend to load live prices.</p>
+        </div>
+      ) : (
+        <div className="dashboard__market-grid">
+          {markets.slice(0, 8).map((m) => (
+            <MarketCard key={m.id} market={m} />
+          ))}
+        </div>
+      )}
+
+      {/* Recent orders */}
+      {orders.length > 0 && (
+        <>
+          <div className="dashboard__section-header" style={{ marginTop: 32 }}>
+            <h2 className="dashboard__section-title">Recent Orders</h2>
+          </div>
+          <div className="card" style={{ overflow: 'hidden' }}>
+            <table className="dashboard__table">
               <thead>
-                <tr className="border-b border-gray-800 text-left text-sm font-medium text-gray-400">
-                  <th className="p-4">Asset</th>
-                  <th className="p-4">Total</th>
-                  <th className="p-4">Available</th>
-                  <th className="p-4">Locked</th>
+                <tr>
+                  <th>Symbol</th>
+                  <th>Side</th>
+                  <th>Price</th>
+                  <th>Qty</th>
+                  <th>Total</th>
+                  <th>Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-800">
-                {portfolio?.balances && Object.entries(portfolio.balances).map(([asset, bal]: [string, any]) => (
-                  <tr key={asset} className="hover:bg-gray-800/50 transition-colors">
-                    <td className="p-4 font-medium">{asset}</td>
-                    <td className="p-4">{bal.total.toLocaleString()}</td>
-                    <td className="p-4">{bal.available.toLocaleString()}</td>
-                    <td className="p-4 text-gray-500">{bal.locked.toLocaleString()}</td>
+              <tbody>
+                {orders.slice(0, 5).map((o) => (
+                  <tr key={o.id}>
+                    <td className="text-mono" style={{ fontWeight: 600 }}>{o.symbol}</td>
+                    <td>
+                      <span className={`badge ${o.type === 'BUY' ? 'badge-green' : 'badge-red'}`}>
+                        {o.type}
+                      </span>
+                    </td>
+                    <td className="text-mono">{o.price.toFixed(2)}</td>
+                    <td className="text-mono">{o.quantity}</td>
+                    <td className="text-mono">{o.total.toFixed(2)}</td>
+                    <td>
+                      <span className={`badge ${
+                        o.status === 'FILLED' ? 'badge-green' :
+                        o.status === 'CANCELLED' ? 'badge-red' : 'badge-blue'
+                      }`}>{o.status}</span>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            {(!portfolio?.balances || Object.keys(portfolio.balances).length === 0) && (
-              <div className="p-8 text-center text-gray-500">No assets found in your portfolio.</div>
-            )}
           </div>
-        </Card>
-      </div>
+        </>
+      )}
     </div>
-  );
+  )
 }
+
+export default Dashboard
