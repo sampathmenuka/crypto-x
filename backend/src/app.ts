@@ -44,12 +44,13 @@ app.use(errorHandler);
 
 // ── HTTP + WebSocket Server ───────────────────────────────────────────────────
 const server = http.createServer(app);
-attachWebSocket(server);
-
-server.listen(env.port, () => {
-  console.log(`\n🚀 Crypto-X API running on http://localhost:${env.port}`);
-  console.log(`📡 WebSocket available at ws://localhost:${env.port}/ws`);
-  console.log(`🌍 Environment: ${env.nodeEnv}\n`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  attachWebSocket(server);
+  server.listen(env.port, () => {
+    console.log(`\n🚀 Crypto-X API running on http://localhost:${env.port}`);
+    console.log(`📡 WebSocket available at ws://localhost:${env.port}/ws`);
+    console.log(`🌍 Environment: ${env.nodeEnv}\n`);
+  });
+}
 
 export default app;
