@@ -1,7 +1,7 @@
 {
   "watch": ["src"],
   "ext": "ts",
-  "exec": "ts-node --esm src/app.ts",
+  "exec": "tsx src/app.ts",
   "ignore": ["dist"],
   "env": {
     "NODE_ENV": "development"
