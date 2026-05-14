@@ -20,7 +20,12 @@ apiClient.interceptors.request.use((config) => {
 
 // Handle responses
 apiClient.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    if (response.data && response.data.success !== undefined) {
+      response.data = response.data.data;
+    }
+    return response;
+  },
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('authToken')
