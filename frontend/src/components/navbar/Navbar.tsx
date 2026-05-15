@@ -1,85 +1,113 @@
-import React, { useState } from 'react'
-import { Search, Bell, Settings, ChevronDown, TrendingUp, TrendingDown } from 'lucide-react'
-import { useMarketStore } from '../../store/useMarketStore'
-import { useDebounce } from '../../hooks'
-import { formatPrice, formatPercent } from '../../utils'
-import './Navbar.css'
+import React, { useState, useEffect } from 'react';
+import { Search, Bell, Settings, TrendingUp, TrendingDown, Menu, X, User } from 'lucide-react';
+import { useMarketStore } from '../../store/useMarketStore';
+import { useDebounce } from '../../hooks';
+import { formatPrice, formatPercent } from '../../utils';
 
 const Navbar: React.FC = () => {
-  const { markets, searchMarkets } = useMarketStore()
-  const [query, setQuery]         = useState('')
-  const [open, setOpen]           = useState(false)
-  const debouncedQuery            = useDebounce(query, 350)
+  const { markets, searchMarkets } = useMarketStore();
+  const [query, setQuery] = useState('');
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const debouncedQuery = useDebounce(query, 350);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
     if (debouncedQuery.trim().length > 1) {
-      searchMarkets(debouncedQuery.trim())
-      setOpen(true)
+      searchMarkets(debouncedQuery.trim());
+      setIsSearchOpen(true);
     } else {
-      setOpen(false)
+      setIsSearchOpen(false);
     }
-  }, [debouncedQuery, searchMarkets])
+  }, [debouncedQuery, searchMarkets]);
 
-  const topMarkets = markets.slice(0, 3)
+  const topMarkets = markets.slice(0, 3);
 
   return (
-    <header className="navbar">
-      {/* Search */}
-      <div className="navbar__search-wrap">
-        <Search size={14} className="navbar__search-icon" />
-        <input
-          id="navbar-search"
-          className="navbar__search"
-          placeholder="Search markets… (BTC, ETH…)"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onBlur={() => setTimeout(() => setOpen(false), 180)}
-        />
-        {open && markets.length > 0 && (
-          <div className="navbar__dropdown fade-in">
-            {markets.slice(0, 6).map((m) => (
-              <div key={m.symbol} className="navbar__dropdown-item">
-                <span className="navbar__dropdown-symbol">{m.symbol}</span>
-                <span className="navbar__dropdown-name">{m.name}</span>
-                <span className={`navbar__dropdown-price ${m.change24h >= 0 ? 'text-up' : 'text-down'}`}>
-                  {formatPrice(m.price)}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      isScrolled ? 'py-3 bg-background/80 backdrop-blur-lg border-b border-white/5' : 'py-6 bg-transparent'
+    }`}>
+      <div className="container mx-auto px-6 flex items-center justify-between gap-8">
+        {/* Logo */}
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center font-bold text-background shadow-glow-primary/20">X</div>
+          <span className="font-display font-bold text-2xl tracking-tighter hidden md:block">CRYPTO-X</span>
+        </div>
 
-      {/* Ticker strip */}
-      <div className="navbar__tickers">
-        {topMarkets.map((m) => (
-          <div key={m.symbol} className="navbar__ticker">
-            <span className="navbar__ticker-symbol">{m.symbol}</span>
-            <span className="navbar__ticker-price text-mono">{formatPrice(m.price)}</span>
-            <span className={`navbar__ticker-change ${m.change24h >= 0 ? 'text-up' : 'text-down'}`}>
-              {m.change24h >= 0 ? <TrendingUp size={11} /> : <TrendingDown size={11} />}
-              {formatPercent(m.change24h)}
-            </span>
+        {/* Search Bar */}
+        <div className="relative flex-1 max-w-md hidden lg:block">
+          <div className="relative group">
+            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-secondary group-focus-within:text-primary transition-colors" />
+            <input
+              type="text"
+              placeholder="Search assets..."
+              className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 pl-12 pr-4 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
           </div>
-        ))}
-      </div>
+          
+          {isSearchOpen && (
+            <div
+              className="absolute top-full left-0 right-0 mt-2 p-2 glass-card border-white/10 shadow-2xl animate-in fade-in zoom-in-95 duration-200"
+            >
+              {markets.slice(0, 5).map((m) => (
+                <div key={m.symbol} className="flex items-center justify-between p-3 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
+                  <div className="flex items-center gap-3">
+                    <span className="font-bold text-sm">{m.symbol}</span>
+                    <span className="small-text">{m.name}</span>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-sm font-mono">{formatPrice(m.price)}</div>
+                    <div className={`text-[10px] ${m.change24h >= 0 ? 'text-up' : 'text-down'}`}>
+                      {formatPercent(m.change24h)}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
 
-      {/* Right actions */}
-      <div className="navbar__actions">
-        <button id="btn-notifications" className="navbar__icon-btn" title="Notifications">
-          <Bell size={16} />
-          <span className="navbar__notif-dot" />
-        </button>
-        <button id="btn-settings" className="navbar__icon-btn" title="Settings">
-          <Settings size={16} />
-        </button>
-        <div className="navbar__network">
-          <span className="navbar__network-dot" />
-          <span>Live</span>
+        {/* Tickers - Desktop only */}
+        <div className="hidden xl:flex items-center gap-6 overflow-hidden">
+          {topMarkets.map((m) => (
+            <div key={m.symbol} className="flex items-center gap-3 px-4 py-2 bg-white/5 rounded-full border border-white/5">
+              <span className="text-xs font-bold text-text-secondary">{m.symbol}</span>
+              <span className="text-xs font-mono">{formatPrice(m.price)}</span>
+              <span className={`flex items-center gap-1 text-[10px] ${m.change24h >= 0 ? 'text-up' : 'text-down'}`}>
+                {m.change24h >= 0 ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
+                {formatPercent(m.change24h)}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Actions */}
+        <div className="flex items-center gap-3">
+          <button className="p-2.5 text-text-secondary hover:text-white hover:bg-white/5 rounded-xl transition-all">
+            <Bell size={20} />
+          </button>
+          <button className="p-2.5 text-text-secondary hover:text-white hover:bg-white/5 rounded-xl transition-all">
+            <Settings size={20} />
+          </button>
+          <div className="h-8 w-[1px] bg-white/10 mx-2 hidden sm:block" />
+          <button className="btn-primary !py-2 !px-4 hidden sm:flex items-center gap-2">
+            <User size={18} />
+            <span>Connect Wallet</span>
+          </button>
+          <button className="sm:hidden p-2.5 text-white bg-white/5 rounded-xl">
+            <Menu size={20} />
+          </button>
         </div>
       </div>
-    </header>
-  )
-}
+    </nav>
+  );
+};
 
-export default Navbar
+export default Navbar;

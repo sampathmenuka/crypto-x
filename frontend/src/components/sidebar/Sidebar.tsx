@@ -1,5 +1,5 @@
-import React from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
   TrendingUp,
@@ -10,10 +10,9 @@ import {
   ChevronLeft,
   ChevronRight,
   Zap,
-} from 'lucide-react'
-import { useAuthStore } from '../../store/useAuthStore'
-import { useLocalStorage } from '../../hooks'
-import './Sidebar.css'
+} from 'lucide-react';
+import { useAuthStore } from '../../store/useAuthStore';
+import { useLocalStorage } from '../../hooks';
 
 const navItems = [
   { path: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -21,82 +20,93 @@ const navItems = [
   { path: '/trading',   icon: BarChart2,        label: 'Trading'   },
   { path: '/wallet',    icon: Wallet,           label: 'Wallet'    },
   { path: '/orders',    icon: ClipboardList,    label: 'Orders'    },
-]
+];
 
 const Sidebar: React.FC = () => {
-  const navigate  = useNavigate()
-  const location  = useLocation()
-  const { logout, user } = useAuthStore()
-  const [collapsed, setCollapsed] = useLocalStorage('sidebar-collapsed', false)
+  const navigate  = useNavigate();
+  const location  = useLocation();
+  const { logout, user } = useAuthStore();
+  const [collapsed, setCollapsed] = useLocalStorage('sidebar-collapsed', false);
 
   const handleLogout = () => {
-    logout()
-    navigate('/login')
-  }
+    logout();
+    navigate('/login');
+  };
 
   return (
-    <aside className={`sidebar ${collapsed ? 'sidebar--collapsed' : ''}`}>
+    <aside 
+      style={{ width: collapsed ? 80 : 260 }}
+      className="h-screen bg-card border-r border-white/5 flex flex-col relative z-20 transition-all duration-300"
+    >
       {/* Logo */}
-      <div className="sidebar__logo">
-        <div className="sidebar__logo-icon">
-          <Zap size={18} />
+      <div className="p-6 mb-4 flex items-center gap-3">
+        <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center font-bold text-background shadow-glow-primary/20 shrink-0">
+          <Zap size={20} />
         </div>
-        {!collapsed && <span className="sidebar__logo-text">Crypto<span>X</span></span>}
+        {!collapsed && (
+          <span className="font-display font-bold text-xl tracking-tighter animate-in fade-in duration-500">
+            CRYPTO<span className="text-primary">X</span>
+          </span>
+        )}
       </div>
 
       {/* Nav links */}
-      <nav className="sidebar__nav">
+      <nav className="flex-1 px-4 space-y-2">
         {navItems.map(({ path, icon: Icon, label }) => {
-          const active = location.pathname === path || (path === '/dashboard' && location.pathname === '/')
+          const active = location.pathname === path || (path === '/dashboard' && location.pathname === '/');
           return (
             <button
               key={path}
-              id={`nav-${label.toLowerCase()}`}
-              className={`sidebar__item ${active ? 'sidebar__item--active' : ''}`}
+              className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 group ${
+                active 
+                  ? 'bg-primary/10 text-primary' 
+                  : 'text-text-secondary hover:bg-white/5 hover:text-white'
+              }`}
               onClick={() => navigate(path)}
-              title={collapsed ? label : undefined}
             >
-              <Icon size={18} />
-              {!collapsed && <span>{label}</span>}
-              {active && <span className="sidebar__active-dot" />}
+              <Icon size={20} className={active ? 'text-primary' : 'text-text-secondary group-hover:text-white'} />
+              {!collapsed && <span className="font-medium">{label}</span>}
+              {active && !collapsed && (
+                <div 
+                  className="ml-auto w-1.5 h-1.5 rounded-full bg-primary shadow-glow-primary" 
+                />
+              )}
             </button>
-          )
+          );
         })}
       </nav>
 
       {/* Footer */}
-      <div className="sidebar__footer">
+      <div className="p-4 border-t border-white/5">
         {!collapsed && (
-          <div className="sidebar__user">
-            <div className="sidebar__avatar">{user?.username?.[0]?.toUpperCase() ?? 'U'}</div>
-            <div className="sidebar__user-info">
-              <p className="sidebar__username">{user?.username ?? 'Trader'}</p>
-              <p className="sidebar__email">{user?.email ?? ''}</p>
+          <div className="flex items-center gap-3 p-3 mb-4 bg-white/5 rounded-xl animate-in fade-in duration-500">
+            <div className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center font-bold text-secondary text-sm">
+              {user?.username?.[0]?.toUpperCase() ?? 'U'}
+            </div>
+            <div className="overflow-hidden">
+              <p className="text-sm font-bold truncate">{user?.username ?? 'Trader'}</p>
+              <p className="text-[10px] text-text-secondary truncate">{user?.email ?? 'trader@crypto-x.com'}</p>
             </div>
           </div>
         )}
 
         <button
-          id="btn-logout"
-          className="sidebar__item sidebar__item--logout"
+          className="w-full flex items-center gap-4 px-4 py-3 text-text-secondary hover:text-down hover:bg-down/5 rounded-xl transition-all"
           onClick={handleLogout}
-          title={collapsed ? 'Logout' : undefined}
         >
-          <LogOut size={16} />
-          {!collapsed && <span>Logout</span>}
+          <LogOut size={20} />
+          {!collapsed && <span className="font-medium">Logout</span>}
         </button>
 
         <button
-          id="btn-sidebar-toggle"
-          className="sidebar__toggle"
+          className="absolute -right-3 top-20 w-6 h-6 bg-card border border-white/10 rounded-full flex items-center justify-center text-text-secondary hover:text-white shadow-xl"
           onClick={() => setCollapsed((c) => !c)}
-          title={collapsed ? 'Expand' : 'Collapse'}
         >
-          {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+          {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
         </button>
       </div>
     </aside>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;
