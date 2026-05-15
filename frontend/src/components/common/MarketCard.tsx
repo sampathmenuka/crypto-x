@@ -1,68 +1,66 @@
-import React from 'react'
-import { TrendingUp, TrendingDown } from 'lucide-react'
-import { Market } from '../../types'
-import { formatPrice, formatPercent, formatCompact } from '../../utils'
-import { useFlash } from '../../hooks'
-import './MarketCard.css'
+import React from 'react';
+import { TrendingUp, TrendingDown, ArrowUpRight } from 'lucide-react';
+import { Market } from '../../types';
+import { formatPrice, formatPercent, formatCompact } from '../../utils';
 
 interface MarketCardProps {
-  market: Market
-  onClick?: (market: Market) => void
+  market: Market;
+  onClick?: (market: Market) => void;
 }
 
 const MarketCard: React.FC<MarketCardProps> = ({ market, onClick }) => {
-  const isPositive = market.change24h >= 0
-  const flashing   = useFlash(market.price)
+  const isPositive = market.change24h >= 0;
 
   return (
     <div
-      id={`market-card-${market.symbol.toLowerCase()}`}
-      className={`market-card card ${flashing ? 'market-card--flash' : ''}`}
+      className="glass-card p-5 cursor-pointer group hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300"
       onClick={() => onClick?.(market)}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => e.key === 'Enter' && onClick?.(market)}
     >
-      <div className="market-card__header">
-        <div className="market-card__identity">
-          <div className="market-card__avatar">
+      <div className="flex items-start justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center font-bold text-sm border border-white/5">
             {market.symbol.slice(0, 2)}
           </div>
           <div>
-            <p className="market-card__symbol">{market.symbol}</p>
-            <p className="market-card__name">{market.name}</p>
+            <div className="font-bold flex items-center gap-1">
+              {market.symbol}
+              <ArrowUpRight size={12} className="text-text-secondary group-hover:text-primary transition-colors" />
+            </div>
+            <div className="text-[11px] text-text-secondary">{market.name}</div>
           </div>
         </div>
-        <span className={`badge ${isPositive ? 'badge-green' : 'badge-red'}`}>
-          {isPositive ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
+        <div className={`flex items-center gap-1 text-xs font-bold ${isPositive ? 'text-up' : 'text-down'}`}>
+          {isPositive ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
           {formatPercent(market.change24h)}
-        </span>
-      </div>
-
-      <div className="market-card__price text-mono">
-        {formatPrice(market.price)}
-      </div>
-
-      <div className="market-card__stats">
-        <div className="market-card__stat">
-          <span className="market-card__stat-label">Vol 24h</span>
-          <span className="market-card__stat-value">{formatCompact(market.volume24h)}</span>
-        </div>
-        <div className="market-card__stat">
-          <span className="market-card__stat-label">Mkt Cap</span>
-          <span className="market-card__stat-value">{formatCompact(market.marketCap)}</span>
         </div>
       </div>
 
-      {/* Mini sparkline bar */}
-      <div className="market-card__bar">
-        <div
-          className={`market-card__bar-fill ${isPositive ? 'market-card__bar-fill--up' : 'market-card__bar-fill--down'}`}
-          style={{ width: `${Math.min(Math.abs(market.change24h) * 10, 100)}%` }}
+      <div className="mb-4">
+        <div className="text-xl font-mono font-bold tracking-tight">
+          {formatPrice(market.price)}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
+        <div>
+          <div className="text-[10px] text-text-secondary uppercase tracking-wider mb-1">24h Vol</div>
+          <div className="text-xs font-medium">{formatCompact(market.volume24h)}</div>
+        </div>
+        <div>
+          <div className="text-[10px] text-text-secondary uppercase tracking-wider mb-1">Market Cap</div>
+          <div className="text-xs font-medium">{formatCompact(market.marketCap)}</div>
+        </div>
+      </div>
+
+      {/* Mini Progress Bar */}
+      <div className="mt-4 h-1 w-full bg-white/5 rounded-full overflow-hidden">
+        <div 
+          className={`h-full transition-all duration-1000 ${isPositive ? 'bg-primary' : 'bg-down'}`}
+          style={{ width: `${Math.min(Math.abs(market.change24h) * 5 + 20, 100)}%` }}
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MarketCard
+export default MarketCard;
