@@ -52,7 +52,7 @@
   }
 
   .glass-card:hover {
-    @apply border-white/10 shadow-glow-primary/10;
+    @apply border-white/10 shadow-glow-primary;
   }
 
   .btn-primary {
