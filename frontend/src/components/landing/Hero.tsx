@@ -1,7 +1,9 @@
 import React from 'react';
 import { ArrowUpRight, Shield, Zap, Globe } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Hero: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <section className="relative overflow-hidden pt-32 pb-20 lg:pt-48 lg:pb-32">
       {/* Background Glows */}
@@ -25,11 +27,11 @@ const Hero: React.FC = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="btn-primary flex items-center gap-2 group w-full sm:w-auto">
+              <button onClick={() => navigate('/register')} className="btn-primary flex items-center gap-2 group w-full sm:w-auto">
                 Get Started Now
                 <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </button>
-              <button className="btn-ghost w-full sm:w-auto">
+              <button onClick={() => navigate('/markets')} className="btn-ghost w-full sm:w-auto">
                 View Markets
               </button>
             </div>

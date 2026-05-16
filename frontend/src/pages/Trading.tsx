@@ -61,12 +61,15 @@ const Trading: React.FC = () => {
         <div className="trading__symbol-select-wrap">
           <select
             id="trading-symbol-select"
-            className="input trading__symbol-select"
+            className="input-field trading__symbol-select bg-background/80"
+            style={{ minWidth: '180px' }}
             value={selectedMarket?.symbol ?? ''}
             onChange={(e) => handleSelectMarket(e.target.value)}
           >
             {markets.map((m) => (
-              <option key={m.symbol} value={m.symbol}>{m.symbol}</option>
+              <option key={m.symbol} value={m.symbol} className="bg-background text-text-primary">
+                {m.symbol}
+              </option>
             ))}
           </select>
         </div>

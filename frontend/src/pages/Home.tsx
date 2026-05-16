@@ -1,8 +1,10 @@
 import React from 'react';
 import Hero from '../components/landing/Hero';
 import { Shield, Zap, Globe, Cpu, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Landing: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-background">
       <Hero />
@@ -59,7 +61,7 @@ const Landing: React.FC = () => {
             <p className="body-text text-text-secondary mb-10">
               Join over 1 million traders and start building your portfolio today.
             </p>
-            <button className="btn-primary group">
+            <button onClick={() => navigate('/register')} className="btn-primary group">
               Create Account 
               <ArrowRight size={18} className="inline ml-2 group-hover:translate-x-1 transition-transform" />
             </button>
