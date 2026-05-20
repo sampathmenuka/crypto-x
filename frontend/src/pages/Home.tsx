@@ -133,10 +133,41 @@ const Landing: React.FC = () => {
 
       {/* Chart & CTA Section */}
       <section className="py-24 relative overflow-hidden z-10 border-t border-white/5 mt-10">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-col items-center justify-center text-center gap-16">
           
-          {/* Left Chart Visuals */}
-          <div className="relative h-[400px]">
+          {/* Top Text Content */}
+          <div className="relative space-y-6 flex flex-col items-center max-w-2xl">
+            <h2 className="text-[40px] leading-[1.2] font-semibold text-white/40">
+              <span className="text-white">Trusted</span> <span className="text-primary">platform</span> <br/>
+              anytime & anywhere.
+            </h2>
+            
+            <div className="flex justify-center gap-2 text-white">
+              <Star size={16} fill="currentColor" />
+              <Star size={16} fill="currentColor" />
+              <Star size={16} fill="currentColor" />
+              <Star size={16} fill="currentColor" />
+            </div>
+
+            <p className="text-white/40 text-sm leading-relaxed">
+              This is a unites and secures a <strong className="text-white font-normal">growing ecosystem</strong> of specialized blockchains called parachains. Apps and services on Crypto-X can ecosystem of specialized called.
+            </p>
+            <p className="text-white/40 text-sm leading-relaxed pb-4">
+              Crypto-X unites and secures a growing ecosystem of specialized blockchains called parachains. Apps and services.
+            </p>
+
+            <div className="flex justify-center gap-6 items-center">
+              <button onClick={() => navigate('/markets')} className="bg-primary text-black font-bold rounded-full px-6 py-3 text-sm hover:bg-primary/90 transition-colors flex items-center gap-2">
+                Learn More <ArrowRight size={16} />
+              </button>
+              <button onClick={() => navigate('/faq')} className="text-white/60 text-sm font-medium hover:text-white transition-colors">
+                Ask question ?
+              </button>
+            </div>
+          </div>
+
+          {/* Bottom Chart Visuals */}
+          <div className="relative h-[400px] w-full max-w-3xl">
              {/* Chart Line Path */}
              <svg className="absolute w-full h-[60%] top-20 text-primary opacity-60 pointer-events-none" viewBox="0 0 400 200" fill="none" preserveAspectRatio="none">
                <path d="M0 150 L60 180 L160 50 L200 80 L350 20 C 370 10, 400 40, 400 40" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
@@ -168,37 +199,6 @@ const Landing: React.FC = () => {
                    <path d="M0 25 L20 15 L40 20 L60 5 L80 15 L100 10" stroke="currentColor" strokeWidth="2"/>
                 </svg>
              </div>
-          </div>
-
-          {/* Right Text Content */}
-          <div className="relative space-y-8">
-            <h2 className="text-[40px] leading-[1.2] font-semibold text-white/40">
-              <span className="text-white">Trusted</span> <span className="text-primary">platform</span> <br/>
-              anytime & anywhere.
-            </h2>
-            
-            <div className="flex gap-2 text-white">
-              <Star size={16} fill="currentColor" />
-              <Star size={16} fill="currentColor" />
-              <Star size={16} fill="currentColor" />
-              <Star size={16} fill="currentColor" />
-            </div>
-
-            <p className="text-white/40 text-sm leading-relaxed max-w-md">
-              This is a unites and secures a <strong className="text-white font-normal">growing ecosystem</strong> of specialized blockchains called parachains. Apps and services on Crypto-X can ecosystem of specialized called.
-            </p>
-            <p className="text-white/40 text-sm leading-relaxed max-w-md pb-4">
-              Crypto-X unites and secures a growing ecosystem of specialized blockchains called parachains. Apps and services.
-            </p>
-
-            <div className="flex gap-6 items-center">
-              <button onClick={() => navigate('/markets')} className="bg-primary text-black font-bold rounded-full px-6 py-3 text-sm hover:bg-primary/90 transition-colors flex items-center gap-2">
-                Learn More <ArrowRight size={16} />
-              </button>
-              <button className="text-white/60 text-sm font-medium hover:text-white transition-colors">
-                Ask question ?
-              </button>
-            </div>
           </div>
         </div>
       </section>
