@@ -25,13 +25,15 @@ const navItems = [
 const Sidebar: React.FC = () => {
   const navigate  = useNavigate();
   const location  = useLocation();
-  const { logout, user } = useAuthStore();
+  const { logout, user, isAuthenticated } = useAuthStore();
   const [collapsed, setCollapsed] = useLocalStorage('sidebar-collapsed', false);
 
   const handleLogout = () => {
     logout();
     navigate('/');
   };
+
+  const isAuth = isAuthenticated();
 
   return (
     <aside 
@@ -77,29 +79,51 @@ const Sidebar: React.FC = () => {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-white/5">
-        {!collapsed && (
-          <div className="flex items-center gap-3 p-3 mb-4 bg-white/5 rounded-xl animate-in fade-in duration-500">
-            <div className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center font-bold text-secondary text-sm">
-              {user?.username?.[0]?.toUpperCase() ?? 'U'}
-            </div>
-            <div className="overflow-hidden">
-              <p className="text-sm font-bold truncate">{user?.username ?? 'Trader'}</p>
-              <p className="text-[10px] text-text-secondary truncate">{user?.email ?? 'trader@crypto-x.com'}</p>
-            </div>
+      <div className="p-4 border-t border-white/5 relative">
+        {isAuth ? (
+          <>
+            {!collapsed && (
+              <div className="flex items-center gap-3 p-3 mb-4 bg-white/5 rounded-xl animate-in fade-in duration-500">
+                <div className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center font-bold text-secondary text-sm">
+                  {user?.username?.[0]?.toUpperCase() ?? 'U'}
+                </div>
+                <div className="overflow-hidden">
+                  <p className="text-sm font-bold truncate">{user?.username ?? 'Trader'}</p>
+                  <p className="text-[10px] text-text-secondary truncate">{user?.email ?? 'trader@crypto-x.com'}</p>
+                </div>
+              </div>
+            )}
+
+            <button
+              className="w-full flex items-center gap-4 px-4 py-3 text-text-secondary hover:text-down hover:bg-down/5 rounded-xl transition-all"
+              onClick={handleLogout}
+            >
+              <LogOut size={20} />
+              {!collapsed && <span className="font-medium">Logout</span>}
+            </button>
+          </>
+        ) : (
+          <div className="flex flex-col gap-2">
+            {!collapsed && (
+              <p className="text-xs text-text-secondary text-center mb-2">Create an account to trade</p>
+            )}
+            <button
+              className="w-full flex items-center justify-center gap-4 px-4 py-3 bg-primary text-black hover:bg-primary/90 rounded-xl transition-all font-bold text-sm"
+              onClick={() => navigate('/login')}
+            >
+              {!collapsed ? 'Log In' : 'In'}
+            </button>
+            <button
+              className="w-full flex items-center justify-center gap-4 px-4 py-3 bg-white/5 text-white hover:bg-white/10 rounded-xl transition-all font-bold text-sm"
+              onClick={() => navigate('/register')}
+            >
+              {!collapsed ? 'Sign Up' : 'Up'}
+            </button>
           </div>
         )}
 
         <button
-          className="w-full flex items-center gap-4 px-4 py-3 text-text-secondary hover:text-down hover:bg-down/5 rounded-xl transition-all"
-          onClick={handleLogout}
-        >
-          <LogOut size={20} />
-          {!collapsed && <span className="font-medium">Logout</span>}
-        </button>
-
-        <button
-          className="absolute -right-3 top-20 w-6 h-6 bg-card border border-white/10 rounded-full flex items-center justify-center text-text-secondary hover:text-white shadow-xl"
+          className="absolute -right-3 top-[-12px] w-6 h-6 bg-card border border-white/10 rounded-full flex items-center justify-center text-text-secondary hover:text-white shadow-xl"
           onClick={() => setCollapsed((c) => !c)}
         >
           {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}

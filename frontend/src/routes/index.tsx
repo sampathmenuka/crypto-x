@@ -9,6 +9,7 @@ import Orders from '../pages/Orders'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
 import Home from '../pages/Home'
+import FAQ from '../pages/FAQ'
 import ProtectedRoute from './ProtectedRoute'
 
 const AppRoutes: React.FC = () => {
@@ -16,6 +17,7 @@ const AppRoutes: React.FC = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/faq" element={<FAQ />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
