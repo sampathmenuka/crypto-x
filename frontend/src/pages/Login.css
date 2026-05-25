@@ -109,6 +109,15 @@
   color: #94a3b8;
 }
 
+/* Fix for browser autofill background color */
+.login-input-field:-webkit-autofill,
+.login-input-field:-webkit-autofill:hover, 
+.login-input-field:-webkit-autofill:focus, 
+.login-input-field:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #fff !important;
+}
+
 .login-pw-toggle {
   background: transparent;
   border: none;
