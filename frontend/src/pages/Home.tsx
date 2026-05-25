@@ -21,15 +21,20 @@ const Landing: React.FC = () => {
           <a href="#" className="hover:text-primary transition-colors">About</a>
           <a href="#" className="hover:text-primary transition-colors">What's new?</a>
         </div>
-        <button onClick={() => navigate('/charts')} className="bg-primary text-black font-bold rounded-xl px-6 py-2.5 text-sm hover:bg-primary/90 transition-colors">
-          Explore now
-        </button>
+        <div className="flex items-center gap-3">
+          <button onClick={() => navigate('/login')} className="hidden sm:inline-flex text-white/70 font-bold rounded-xl px-4 py-2.5 text-sm hover:text-white hover:bg-white/5 transition-colors">
+            Log In
+          </button>
+          <button onClick={() => navigate('/register')} className="bg-primary text-black font-bold rounded-xl px-5 py-2.5 text-sm hover:bg-primary/90 transition-colors">
+            Sign Up
+          </button>
+        </div>
       </nav>
 
       <Hero />
       
       {/* Services Section Hexagon Layout */}
-      <section className="relative z-10 py-20 mt-10">
+      <section className="relative z-10 pt-20 pb-4 mt-10">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-24">
             <h2 className="text-4xl md:text-5xl font-bold leading-tight">
@@ -132,7 +137,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* Chart & CTA Section */}
-      <section className="py-24 relative overflow-hidden z-10 border-t border-white/5 mt-10">
+      <section className="pt-12 pb-24 relative overflow-hidden z-10 border-t border-white/5">
         <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-col items-center justify-center text-center gap-16">
           
           {/* Top Text Content */}

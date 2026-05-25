@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Bell, Settings, TrendingUp, TrendingDown, Menu, X, User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Search, Bell, Settings, TrendingUp, TrendingDown, Menu, User, LogIn, UserPlus } from 'lucide-react';
 import { useMarketStore } from '../../store/useMarketStore';
 import { useAuthStore } from '../../store/useAuthStore';
 import { useDebounce } from '../../hooks';
@@ -7,12 +8,14 @@ import { formatPrice, formatPercent } from '../../utils';
 
 const Navbar: React.FC = () => {
   const { markets, searchMarkets } = useMarketStore();
-  const { isAuthenticated } = useAuthStore();
+  const { user, isAuthenticated } = useAuthStore();
+  const navigate = useNavigate();
   const [query, setQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const debouncedQuery = useDebounce(query, 350);
+  const isAuth = isAuthenticated();
 
   const notifications = [
     { id: 1, title: 'Order Completed', message: 'Your market buy order for 1.5 BTC has been completed.', time: '2 mins ago', type: 'current' },
@@ -154,10 +157,33 @@ const Navbar: React.FC = () => {
             <Settings size={20} />
           </button>
           <div className="h-8 w-[1px] bg-white/10 mx-2 hidden sm:block" />
-          <button className="btn-primary !py-2 !px-4 hidden sm:flex items-center gap-2">
-            <User size={18} />
-            <span>Connect Wallet</span>
-          </button>
+          {isAuth ? (
+            <button
+              className="btn-primary !py-2 !px-4 flex items-center gap-2"
+              onClick={() => navigate('/dashboard')}
+            >
+              <User size={18} />
+              <span className="hidden sm:inline">{user?.username ?? 'Account'}</span>
+            </button>
+          ) : (
+            <>
+              <button
+                className="hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-bold text-white hover:bg-white/5 rounded-xl transition-all"
+                onClick={() => navigate('/login')}
+              >
+                <LogIn size={18} />
+                <span>Log In</span>
+              </button>
+              <button
+                className="btn-primary !py-2 !px-4 flex items-center gap-2"
+                onClick={() => navigate('/register')}
+                aria-label="Sign up"
+              >
+                <UserPlus size={18} />
+                <span className="hidden sm:inline">Sign Up</span>
+              </button>
+            </>
+          )}
           <button className="sm:hidden p-2.5 text-white bg-white/5 rounded-xl">
             <Menu size={20} />
           </button>
