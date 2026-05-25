@@ -17,11 +17,11 @@ const Landing: React.FC = () => {
         </div>
         <div className="hidden md:flex gap-10 text-sm text-white/60 font-medium">
           <a href="#" className="hover:text-primary transition-colors text-white">Home</a>
-          <a href="#" className="hover:text-primary transition-colors">Services</a>
+          <a href="/markets" className="hover:text-primary transition-colors">Markets</a>
           <a href="#" className="hover:text-primary transition-colors">About</a>
           <a href="#" className="hover:text-primary transition-colors">What's new?</a>
         </div>
-        <button onClick={() => navigate('/markets')} className="bg-primary text-black font-bold rounded-xl px-6 py-2.5 text-sm hover:bg-primary/90 transition-colors">
+        <button onClick={() => navigate('/charts')} className="bg-primary text-black font-bold rounded-xl px-6 py-2.5 text-sm hover:bg-primary/90 transition-colors">
           Explore now
         </button>
       </nav>
