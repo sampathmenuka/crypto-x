@@ -17,7 +17,7 @@ const Landing: React.FC = () => {
         </div>
         <div className="hidden md:flex gap-10 text-sm text-white/60 font-medium">
           <a href="#" className="hover:text-primary transition-colors text-white">Home</a>
-          <a href="#" className="hover:text-primary transition-colors">Services</a>
+          <a href="/markets" className="hover:text-primary transition-colors">Markets</a>
           <a href="#" className="hover:text-primary transition-colors">About</a>
           <a href="#" className="hover:text-primary transition-colors">What's new?</a>
         </div>

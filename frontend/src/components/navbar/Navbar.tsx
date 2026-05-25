@@ -12,9 +12,17 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const debouncedQuery = useDebounce(query, 350);
   const isAuth = isAuthenticated();
+
+  const notifications = [
+    { id: 1, title: 'Order Completed', message: 'Your market buy order for 1.5 BTC has been completed.', time: '2 mins ago', type: 'current' },
+    { id: 2, title: 'Price Alert', message: 'ETH has surpassed $4,000.', time: '1 hour ago', type: 'current' },
+    { id: 3, title: 'Deposit Successful', message: 'You have successfully deposited $10,000.', time: '2 days ago', type: 'past' },
+    { id: 4, title: 'System Maintenance', message: 'Scheduled maintenance will occur on May 28th.', time: '1 week ago', type: 'past' }
+  ];
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -94,10 +102,57 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-3">
-          <button className="p-2.5 text-text-secondary hover:text-white hover:bg-white/5 rounded-xl transition-all">
-            <Bell size={20} />
-          </button>
+        <div className="flex items-center gap-3 relative">
+          {isAuthenticated() && (
+            <div className="relative">
+              <button 
+                className={`p-2.5 rounded-xl transition-all ${isNotificationsOpen ? 'text-white bg-white/10' : 'text-text-secondary hover:text-white hover:bg-white/5'}`}
+                onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
+              >
+                <Bell size={20} />
+                {/* Notification badge */}
+                <span className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+              </button>
+              
+              {/* Notification Panel */}
+              {isNotificationsOpen && (
+                <div className="absolute top-full right-0 mt-3 w-80 glass-card border-white/10 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200 z-50 rounded-xl overflow-hidden flex flex-col max-h-[400px]">
+                  <div className="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
+                    <h3 className="font-bold text-sm">Notifications</h3>
+                    <button className="text-[10px] text-primary hover:text-primary/80 transition-colors uppercase tracking-wider font-bold">Mark all read</button>
+                  </div>
+                  
+                  <div className="overflow-y-auto flex-1 p-2">
+                    <div className="px-2 py-1">
+                      <h4 className="text-[10px] text-text-secondary uppercase tracking-wider font-bold mb-2">Current</h4>
+                      {notifications.filter(n => n.type === 'current').map(n => (
+                        <div key={n.id} className="p-3 bg-white/5 hover:bg-white/10 rounded-lg cursor-pointer transition-colors mb-2 border border-white/5">
+                          <div className="flex justify-between items-start mb-1">
+                            <span className="font-bold text-xs text-white group-hover:text-primary transition-colors">{n.title}</span>
+                            <span className="text-[10px] text-primary">{n.time}</span>
+                          </div>
+                          <p className="text-[11px] text-text-secondary leading-relaxed">{n.message}</p>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <div className="px-2 py-1 mt-2">
+                      <h4 className="text-[10px] text-text-secondary uppercase tracking-wider font-bold mb-2">Past</h4>
+                      {notifications.filter(n => n.type === 'past').map(n => (
+                        <div key={n.id} className="p-3 hover:bg-white/5 rounded-lg cursor-pointer transition-colors mb-2 border border-transparent">
+                          <div className="flex justify-between items-start mb-1">
+                            <span className="font-bold text-xs text-white/70">{n.title}</span>
+                            <span className="text-[10px] text-text-secondary/50">{n.time}</span>
+                          </div>
+                          <p className="text-[11px] text-text-secondary/70 leading-relaxed">{n.message}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
           <button className="p-2.5 text-text-secondary hover:text-white hover:bg-white/5 rounded-xl transition-all">
             <Settings size={20} />
           </button>
