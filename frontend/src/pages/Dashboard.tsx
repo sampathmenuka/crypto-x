@@ -39,7 +39,7 @@ const StatCard: React.FC<{
       <div>
         <p className="small-text mb-1">{label}</p>
         <p className="text-2xl font-bold mb-1">{value}</p>
-        {sub && <p className="text-[11px] text-text-secondary">{sub}</p>}
+        {sub && <p className="text-sm text-text-secondary">{sub}</p>}
       </div>
     </div>
   );
@@ -156,7 +156,7 @@ const Dashboard: React.FC = () => {
                         <span className="font-bold">{o.symbol}</span>
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`px-2 py-1 rounded text-[10px] font-bold ${
+                        <span className={`px-2 py-1 rounded text-xs font-bold ${
                           o.type === 'BUY' ? 'bg-up/10 text-up' : 'bg-down/10 text-down'
                         }`}>
                           {o.type}
@@ -169,7 +169,7 @@ const Dashboard: React.FC = () => {
                         {o.quantity}
                       </td>
                       <td className="px-6 py-4 text-right">
-                        <span className={`px-2 py-1 rounded-full text-[10px] font-bold ${
+                        <span className={`px-2 py-1 rounded-full text-xs font-bold ${
                           o.status === 'FILLED' ? 'bg-up/10 text-up' :
                           o.status === 'CANCELLED' ? 'bg-down/10 text-down' : 'bg-secondary/10 text-secondary'
                         }`}>
