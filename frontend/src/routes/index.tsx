@@ -10,6 +10,7 @@ import Login from '../pages/Login'
 import Register from '../pages/Register'
 import Home from '../pages/Home'
 import FAQ from '../pages/FAQ'
+import Charts from '../pages/Charts'
 import ProtectedRoute from './ProtectedRoute'
 
 const AppRoutes: React.FC = () => {
@@ -36,6 +37,14 @@ const AppRoutes: React.FC = () => {
           element={
             <MainLayout>
               <Markets />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/charts"
+          element={
+            <MainLayout>
+              <Charts />
             </MainLayout>
           }
         />
