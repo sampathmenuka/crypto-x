@@ -21,15 +21,20 @@ const Landing: React.FC = () => {
           <a href="#" className="hover:text-primary transition-colors">About</a>
           <a href="#" className="hover:text-primary transition-colors">What's new?</a>
         </div>
-        <button onClick={() => navigate('/charts')} className="bg-primary text-black font-bold rounded-xl px-6 py-2.5 text-sm hover:bg-primary/90 transition-colors">
-          Explore now
-        </button>
+        <div className="flex items-center gap-3">
+          <button onClick={() => navigate('/login')} className="hidden sm:inline-flex text-white/70 font-bold rounded-xl px-4 py-2.5 text-sm hover:text-white hover:bg-white/5 transition-colors">
+            Log In
+          </button>
+          <button onClick={() => navigate('/register')} className="bg-primary text-black font-bold rounded-xl px-5 py-2.5 text-sm hover:bg-primary/90 transition-colors">
+            Sign Up
+          </button>
+        </div>
       </nav>
 
       <Hero />
       
       {/* Services Section Hexagon Layout */}
-      <section className="relative z-10 py-20 mt-10">
+      <section className="relative z-10 pt-20 pb-4 mt-10">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-24">
             <h2 className="text-4xl md:text-5xl font-bold leading-tight">
@@ -49,12 +54,12 @@ const Landing: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#090b14] via-transparent to-[#090b14]/50"></div>
                 <div className="absolute inset-x-0 bottom-0 p-8 flex flex-col items-center text-center justify-end h-full pb-12">
                   <h3 className="text-lg md:text-xl font-bold tracking-widest text-white transition-all duration-300 group-hover:-translate-y-4">PRODUCTS</h3>
-                  <p className="text-[11px] md:text-xs text-white/70 mb-4 opacity-0 group-hover:opacity-100 transition-all duration-500 absolute bottom-16 px-4">Advanced trading tools and multi-asset wallet solutions.</p>
-                  <button onClick={() => navigate('/markets')} className="border border-white/30 text-white text-[10px] font-bold px-5 py-2 hover:bg-white hover:text-black transition-all uppercase tracking-wider backdrop-blur-sm absolute bottom-6 opacity-0 group-hover:opacity-100">
+                  <p className="text-sm md:text-xs text-white/70 mb-4 opacity-0 group-hover:opacity-100 transition-all duration-500 absolute bottom-16 px-4">Advanced trading tools and multi-asset wallet solutions.</p>
+                  <button onClick={() => navigate('/markets')} className="border border-white/30 text-white text-xs font-bold px-5 py-2 hover:bg-white hover:text-black transition-all uppercase tracking-wider backdrop-blur-sm absolute bottom-6 opacity-0 group-hover:opacity-100">
                     Learn More
                   </button>
                   {/* Default static button (fades out on hover) */}
-                  <button className="border border-white/30 text-white text-[10px] font-bold px-5 py-2 uppercase tracking-wider absolute bottom-6 group-hover:opacity-0 transition-opacity">
+                  <button className="border border-white/30 text-white text-xs font-bold px-5 py-2 uppercase tracking-wider absolute bottom-6 group-hover:opacity-0 transition-opacity">
                     Learn More
                   </button>
                 </div>
@@ -66,11 +71,11 @@ const Landing: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#090b14] via-transparent to-[#090b14]/50"></div>
                 <div className="absolute inset-x-0 bottom-0 p-8 flex flex-col items-center text-center justify-end h-full pb-12">
                   <h3 className="text-lg md:text-xl font-bold tracking-widest text-white transition-all duration-300 group-hover:-translate-y-4">SERVICES</h3>
-                  <p className="text-[11px] md:text-xs text-white/70 mb-4 opacity-0 group-hover:opacity-100 transition-all duration-500 absolute bottom-16 px-4">Staking, OTC desk, and 24/7 dedicated support.</p>
-                  <button onClick={() => navigate('/register')} className="border border-white/30 text-white text-[10px] font-bold px-5 py-2 hover:bg-white hover:text-black transition-all uppercase tracking-wider backdrop-blur-sm absolute bottom-6 opacity-0 group-hover:opacity-100">
+                  <p className="text-sm md:text-xs text-white/70 mb-4 opacity-0 group-hover:opacity-100 transition-all duration-500 absolute bottom-16 px-4">Staking, OTC desk, and 24/7 dedicated support.</p>
+                  <button onClick={() => navigate('/register')} className="border border-white/30 text-white text-xs font-bold px-5 py-2 hover:bg-white hover:text-black transition-all uppercase tracking-wider backdrop-blur-sm absolute bottom-6 opacity-0 group-hover:opacity-100">
                     Learn More
                   </button>
-                  <button className="border border-white/30 text-white text-[10px] font-bold px-5 py-2 uppercase tracking-wider absolute bottom-6 group-hover:opacity-0 transition-opacity">
+                  <button className="border border-white/30 text-white text-xs font-bold px-5 py-2 uppercase tracking-wider absolute bottom-6 group-hover:opacity-0 transition-opacity">
                     Learn More
                   </button>
                 </div>
@@ -82,11 +87,11 @@ const Landing: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#090b14] via-transparent to-[#090b14]/50"></div>
                 <div className="absolute inset-x-0 bottom-0 p-8 flex flex-col items-center text-center justify-end h-full pb-12">
                   <h3 className="text-lg md:text-xl font-bold tracking-widest text-white transition-all duration-300 group-hover:-translate-y-4">MARKETS</h3>
-                  <p className="text-[11px] md:text-xs text-white/70 mb-4 opacity-0 group-hover:opacity-100 transition-all duration-500 absolute bottom-16 px-4">Real-time market data and deep liquidity pools.</p>
-                  <button onClick={() => navigate('/markets')} className="border border-white/30 text-white text-[10px] font-bold px-5 py-2 hover:bg-white hover:text-black transition-all uppercase tracking-wider backdrop-blur-sm absolute bottom-6 opacity-0 group-hover:opacity-100">
+                  <p className="text-sm md:text-xs text-white/70 mb-4 opacity-0 group-hover:opacity-100 transition-all duration-500 absolute bottom-16 px-4">Real-time market data and deep liquidity pools.</p>
+                  <button onClick={() => navigate('/markets')} className="border border-white/30 text-white text-xs font-bold px-5 py-2 hover:bg-white hover:text-black transition-all uppercase tracking-wider backdrop-blur-sm absolute bottom-6 opacity-0 group-hover:opacity-100">
                     Learn More
                   </button>
-                  <button className="border border-white/30 text-white text-[10px] font-bold px-5 py-2 uppercase tracking-wider absolute bottom-6 group-hover:opacity-0 transition-opacity">
+                  <button className="border border-white/30 text-white text-xs font-bold px-5 py-2 uppercase tracking-wider absolute bottom-6 group-hover:opacity-0 transition-opacity">
                     Learn More
                   </button>
                 </div>
@@ -101,11 +106,11 @@ const Landing: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#090b14] via-transparent to-[#090b14]/50"></div>
                 <div className="absolute inset-x-0 bottom-0 p-8 flex flex-col items-center text-center justify-end h-full pb-12">
                   <h3 className="text-lg md:text-xl font-bold tracking-widest text-white transition-all duration-300 group-hover:-translate-y-4">CASE STUDIES</h3>
-                  <p className="text-[11px] md:text-xs text-white/70 mb-4 opacity-0 group-hover:opacity-100 transition-all duration-500 absolute bottom-16 px-4">Success stories from leading institutional partners.</p>
-                  <button className="border border-white/30 text-white text-[10px] font-bold px-5 py-2 hover:bg-white hover:text-black transition-all uppercase tracking-wider backdrop-blur-sm absolute bottom-6 opacity-0 group-hover:opacity-100">
+                  <p className="text-sm md:text-xs text-white/70 mb-4 opacity-0 group-hover:opacity-100 transition-all duration-500 absolute bottom-16 px-4">Success stories from leading institutional partners.</p>
+                  <button className="border border-white/30 text-white text-xs font-bold px-5 py-2 hover:bg-white hover:text-black transition-all uppercase tracking-wider backdrop-blur-sm absolute bottom-6 opacity-0 group-hover:opacity-100">
                     Learn More
                   </button>
-                  <button className="border border-white/30 text-white text-[10px] font-bold px-5 py-2 uppercase tracking-wider absolute bottom-6 group-hover:opacity-0 transition-opacity">
+                  <button className="border border-white/30 text-white text-xs font-bold px-5 py-2 uppercase tracking-wider absolute bottom-6 group-hover:opacity-0 transition-opacity">
                     Learn More
                   </button>
                 </div>
@@ -117,11 +122,11 @@ const Landing: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#090b14] via-transparent to-[#090b14]/50"></div>
                 <div className="absolute inset-x-0 bottom-0 p-8 flex flex-col items-center text-center justify-end h-full pb-12">
                   <h3 className="text-lg md:text-xl font-bold tracking-widest text-white transition-all duration-300 group-hover:-translate-y-4">NEWS & EVENTS</h3>
-                  <p className="text-[11px] md:text-xs text-white/70 mb-4 opacity-0 group-hover:opacity-100 transition-all duration-500 absolute bottom-16 px-4">Keep up with the latest blockchain announcements.</p>
-                  <button className="border border-white/30 text-white text-[10px] font-bold px-5 py-2 hover:bg-white hover:text-black transition-all uppercase tracking-wider backdrop-blur-sm absolute bottom-6 opacity-0 group-hover:opacity-100">
+                  <p className="text-sm md:text-xs text-white/70 mb-4 opacity-0 group-hover:opacity-100 transition-all duration-500 absolute bottom-16 px-4">Keep up with the latest blockchain announcements.</p>
+                  <button className="border border-white/30 text-white text-xs font-bold px-5 py-2 hover:bg-white hover:text-black transition-all uppercase tracking-wider backdrop-blur-sm absolute bottom-6 opacity-0 group-hover:opacity-100">
                     Learn More
                   </button>
-                  <button className="border border-white/30 text-white text-[10px] font-bold px-5 py-2 uppercase tracking-wider absolute bottom-6 group-hover:opacity-0 transition-opacity">
+                  <button className="border border-white/30 text-white text-xs font-bold px-5 py-2 uppercase tracking-wider absolute bottom-6 group-hover:opacity-0 transition-opacity">
                     Learn More
                   </button>
                 </div>
@@ -132,7 +137,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* Chart & CTA Section */}
-      <section className="py-24 relative overflow-hidden z-10 border-t border-white/5 mt-10">
+      <section className="pt-12 pb-24 relative overflow-hidden z-10 border-t border-white/5">
         <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-col items-center justify-center text-center gap-16">
           
           {/* Top Text Content */}
@@ -180,18 +185,18 @@ const Landing: React.FC = () => {
              {/* Value Tooltips */}
              <div className="absolute top-10 left-0 bg-transparent border-l-2 border-primary pl-4">
                 <div className="text-primary font-bold mb-1">| $4,528 USD</div>
-                <div className="text-[10px] text-white/40 max-w-[150px]">Crypto-X unites and secures a grow ecosystem of specialized blockchains.</div>
+                <div className="text-xs text-white/40 max-w-[150px]">Crypto-X unites and secures a grow ecosystem of specialized blockchains.</div>
              </div>
 
              <div className="absolute top-[50%] right-[10%] bg-[#1a1f2e] border border-white/5 rounded-xl p-4 w-[200px] z-20 shadow-2xl">
                 <div className="text-primary font-bold mb-1">| 1,44,528 BTC</div>
-                <div className="text-[10px] text-white/40 mb-2">Crypto-X unites secures a growing ecosystem of specialized blocks.</div>
+                <div className="text-xs text-white/40 mb-2">Crypto-X unites secures a growing ecosystem of specialized blocks.</div>
              </div>
 
              <div className="absolute bottom-0 left-0 bg-[#1a1f2e] rounded-xl p-4 w-[160px] border border-white/5 z-20">
-                <div className="text-[10px] text-white/40 mb-1">Average Rate</div>
+                <div className="text-xs text-white/40 mb-1">Average Rate</div>
                 <div className="text-primary font-bold text-lg mb-1">$4,528 USD</div>
-                <div className="flex justify-between items-center text-[10px]">
+                <div className="flex justify-between items-center text-xs">
                   <span className="text-primary">+45.66%</span>
                   <span className="bg-primary text-black px-2 py-0.5 rounded-full font-bold">02 May</span>
                 </div>
