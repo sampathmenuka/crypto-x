@@ -11,6 +11,8 @@ import authRoutes      from './routes/auth.js';
 import marketRoutes    from './routes/markets.js';
 import orderRoutes     from './routes/orders.js';
 import portfolioRoutes from './routes/portfolio.js';
+import notificationRoutes from './routes/notification.routes.js';
+import { setupSocket } from './socket/socket.js';
 
 // ── App ───────────────────────────────────────────────────────────────────────
 const app = express();
@@ -37,6 +39,7 @@ app.use('/api/auth',      authRoutes);
 app.use('/api/markets',   marketRoutes);
 app.use('/api/orders',    orderRoutes);
 app.use('/api/portfolio', portfolioRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 // 404 handler
 app.use((_req, res) => {
